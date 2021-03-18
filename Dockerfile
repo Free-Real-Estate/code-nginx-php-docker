@@ -105,9 +105,5 @@ RUN touch /php.log && chmod 777 /php.log
 WORKDIR /var/www/html
 COPY src/ /var/www/html/
 
-# Expose the port nginx is reachable on
-EXPOSE 8443
-EXPOSE 80
-
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
