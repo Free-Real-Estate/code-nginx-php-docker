@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 
 
-sed 's#root /config/workspace.*#root /config/workspace/salut;#' /etc/nginx/nginx.conf > /tmp/nginx.conf
+sed 's#root /config/workspace.*#root '"$(pwd)/$@"';#' /etc/nginx/nginx.conf > /tmp/nginx.conf
 cp /tmp/nginx.conf /etc/nginx/nginx.conf
 
 /usr/bin/supervisorctl -c /etc/supervisor/conf.d/supervisord.conf restart nginx
