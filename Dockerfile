@@ -97,5 +97,7 @@ COPY /root /
 EXPOSE 8443
 EXPOSE 80
 
+RUN chmod a+w /etc/nginx/nginx.conf
+
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
