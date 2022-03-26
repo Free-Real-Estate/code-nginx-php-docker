@@ -84,7 +84,13 @@ RUN echo "**** install web-server ****" && \
 RUN echo "**** install mysql ****" \
   && apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends mysql-server \
-  && mkdir -p /var/run/mysqld
+  && mkdir -p /var/run/mysqld \
+  && mkdir -p ${MYSQL_DATA_DIR} \
+  && chmod -R 0700 ${MYSQL_DATA_DIR} \
+  && chown -R ${MYSQL_USER}:${MYSQL_USER} ${MYSQL_DATA_DIR} \
+  && mkdir -p ${MYSQL_RUN_DIR} \
+  && chmod -R 0755 ${MYSQL_RUN_DIR} \
+  && chown -R ${MYSQL_USER}:root ${MYSQL_RUN_DIR}
 
 RUN echo "**** clean up ****" && \
   apt-get purge --auto-remove -y \
@@ -102,11 +108,13 @@ RUN echo "**** clean up ****" && \
 # add local files
 COPY /root /
 
+
 # ports and volumes
 EXPOSE 8443
 EXPOSE 80
 
-RUN chmod a+w /etc/nginx/nginx.conf
+RUN chmod a+w /etc/nginx/nginx.conf \
+  && chmod -R 700 /etc/mysql
 
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

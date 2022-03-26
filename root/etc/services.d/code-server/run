@@ -17,6 +17,11 @@ install-extension beardedbear.beardedtheme
 install-extension bmewburn.vscode-intelephense-client
 install-extension cweijan.vscode-mysql-client2
 
+if [ ! -f "/config/mysql" ]; then
+    mysql -uroot -e "CREATE USER 'abc'@'%' IDENTIFIED BY 'paulorado'; GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' WITH GRANT OPTION;"
+    touch /config/mysql
+fi
+
 exec \
     s6-setuidgid abc \
         /usr/local/bin/code-server \
