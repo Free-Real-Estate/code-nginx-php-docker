@@ -15,6 +15,7 @@ fi
 
 install-extension beardedbear.beardedtheme
 install-extension bmewburn.vscode-intelephense-client
+install-extension cweijan.vscode-mysql-client2
 
 exec \
     s6-setuidgid abc \
