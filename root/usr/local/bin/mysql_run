@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ "$(ls -A /var/lib/mysql)" ]; then
+    echo "Starting Normaly"
+else
+    echo "Initializing"
+    mysqld --initialize-insecure --user=mysql
+
+    /usr/bin/pidproxy /var/run/mysqld/mysqld.pid /usr/sbin/mysqld &&
+
+    mysql -uroot --skip-password -e "CREATE USER 'abc'@'%' IDENTIFIED BY 'freforlife'; GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' WITH GRANT OPTION;"
+
+    pkill mysqld
+    pkill pidproxy
+
+fi
+
+exec /usr/bin/pidproxy /var/run/mysqld/mysqld.pid /usr/sbin/mysqld

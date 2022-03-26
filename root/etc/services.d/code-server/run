@@ -18,11 +18,6 @@ install-extension bmewburn.vscode-intelephense-client
 install-extension cweijan.vscode-mysql-client2
 install-extension genuitecllc.codetogether
 
-if [ ! -f "/config/mysql" ]; then
-    mysql -uroot -e "CREATE USER 'abc'@'%' IDENTIFIED BY 'freforlife'; GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' WITH GRANT OPTION;"
-    touch /config/mysql
-fi
-
 exec \
     s6-setuidgid abc \
         /usr/local/bin/code-server \
