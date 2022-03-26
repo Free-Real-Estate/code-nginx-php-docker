@@ -15,6 +15,13 @@ fi
 
 install-extension beardedbear.beardedtheme
 install-extension bmewburn.vscode-intelephense-client
+install-extension cweijan.vscode-mysql-client2
+install-extension genuitecllc.codetogether
+
+if [ ! -f "/config/mysql" ]; then
+    mysql -uroot -e "CREATE USER 'abc'@'%' IDENTIFIED BY 'freforlife'; GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' WITH GRANT OPTION;"
+    touch /config/mysql
+fi
 
 exec \
     s6-setuidgid abc \
@@ -22,6 +29,7 @@ exec \
             --bind-addr 0.0.0.0:8443 \
             --user-data-dir /config/data \
             --extensions-dir /config/extensions \
+            --enable-proposed-api genuitecllc.codetogether \
             --disable-telemetry \
             --auth "${AUTH}" \
             "${PROXY_DOMAIN_ARG}" \
