@@ -1,5 +1,8 @@
 #!/usr/bin/with-contenv bash
 
+chmod -R 0700 ${MYSQL_DATA_DIR}
+chown -R ${MYSQL_USER}:${MYSQL_USER} ${MYSQL_DATA_DIR}
+
 if [ -n "${PASSWORD}" ] || [ -n "${HASHED_PASSWORD}" ]; then
     AUTH="password"
 else
@@ -17,6 +20,9 @@ install-extension beardedbear.beardedtheme
 install-extension bmewburn.vscode-intelephense-client
 install-extension cweijan.vscode-mysql-client2
 install-extension genuitecllc.codetogether
+
+sleep 5
+mysql -uroot --skip-password -e "CREATE USER 'abc'@'%' IDENTIFIED BY 'freforlife'; GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' WITH GRANT OPTION;" 2>&1
 
 exec \
     s6-setuidgid abc \
