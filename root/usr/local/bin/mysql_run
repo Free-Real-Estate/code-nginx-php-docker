@@ -6,14 +6,6 @@ if [ "$(ls -A /var/lib/mysql)" ]; then
 else
     echo "Initializing"
     mysqld --initialize-insecure --user=mysql 2>&1
-
-    # /usr/bin/pidproxy /var/run/mysqld/mysqld.pid /usr/sbin/mysqld &&
-
-    # mysql -uroot --skip-password -e "CREATE USER 'abc'@'%' IDENTIFIED BY 'freforlife'; GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' WITH GRANT OPTION;" 2>&1
-
-    # pkill mysqld 2>&1
-    # pkill pidproxy 2>&1
-
 fi
 
 exec /usr/bin/pidproxy /var/run/mysqld/mysqld.pid /usr/sbin/mysqld
