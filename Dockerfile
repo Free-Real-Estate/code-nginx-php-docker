@@ -54,6 +54,7 @@ RUN echo "**** install code-server ****" && \
   npm config set python python3 && \
   yarn config set network-timeout 600000 -g && \
   yarn --production --verbose --frozen-lockfile global add code-server@"$CODE_VERSION" && \
+  yarn global add typescript && \
   yarn cache clean
 
 RUN echo "**** install web-server ****" && \
