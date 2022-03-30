@@ -73,6 +73,7 @@ RUN echo "**** install web-server ****" && \
   php7.4-json \
   php7.4-mbstring \
   php7.4-opcache \
+  php7.4-mysql \
   php7.4-xml \
   php7.4-zip \
   supervisor && \
